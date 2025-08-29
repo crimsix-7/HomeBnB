@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Airbnb Clone (MVP)</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.10/css/pico.min.css">
+    <style>
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+      .container-narrow { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+      /* Card styles to avoid Pico overlay */
+      .card { padding: 0.75rem; border-radius: 12px; border: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,0.02); }
+      .card-body { padding-top: 0.5rem; }
+      .card-title strong { display: block; margin-top: 0.5rem; }
+      .card-img { display:block; aspect-ratio: 16/10; object-fit: cover; width: 100%; border-radius: 8px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
