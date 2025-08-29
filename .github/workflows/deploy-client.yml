@@ -1,10 +1,12 @@
 name: Deploy client to GH Pages
+
 on:
   push:
     branches: [ main ]
     paths:
       - 'client/**'
       - '.github/workflows/deploy-client.yml'
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
 
 permissions:
   contents: read
@@ -23,25 +25,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      # Derive BASE_PATH from repo name for GitHub Pages project site:
+
+      # Make base path '/<repo>/' so assets resolve on Pages
       - name: Compute BASE_PATH
         run: |
           repo="${GITHUB_REPOSITORY#*/}"
           echo "BASE_PATH=/$repo/" >> $GITHUB_ENV
+
+      # Provide the API URL at build time
       - name: Write .env.production
         run: |
-          mkdir -p client
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > client/.env.production
-      - name: Build
+
+      - name: Build client
         run: |
           cd client
-          npm ci
+          npm install
           npm run build
-          # Add 404 fallback for React Router on GitHub Pages
+          # SPA fallback so React Router refreshes don't 404
           cp dist/index.html dist/404.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: client/dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
