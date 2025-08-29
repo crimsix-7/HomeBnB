@@ -28,9 +28,7 @@ jobs:
 
       # Make base path '/<repo>/' so assets resolve on Pages
       - name: Compute BASE_PATH
-        run: |
-          repo="${GITHUB_REPOSITORY#*/}"
-          echo "BASE_PATH=/$repo/" >> $GITHUB_ENV
+        run: echo "BASE_PATH=/" >> $GITHUB_ENV
 
       # Provide the API URL at build time
       - name: Write .env.production
