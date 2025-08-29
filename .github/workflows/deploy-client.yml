@@ -30,7 +30,7 @@ jobs:
       - name: Compute BASE_PATH
         run: echo "BASE_PATH=/" >> $GITHUB_ENV
 
-      # Provide the API URL at build time
+      # Provide the API URL at build time.
       - name: Write .env.production
         run: |
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > client/.env.production
